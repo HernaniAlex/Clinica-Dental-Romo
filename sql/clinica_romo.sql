@@ -1,0 +1,12 @@
+CREATE DATABASE IF NOT EXISTS clinica_romo;
+USE clinica_romo;
+
+CREATE TABLE IF NOT EXISTS mensajes_contacto (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    telefono VARCHAR(20),
+    mensaje TEXT NOT NULL,
+    fecha_envio TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    leido BOOLEAN DEFAULT FALSE
+);
