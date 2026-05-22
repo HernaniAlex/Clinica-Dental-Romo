@@ -1,4 +1,4 @@
-/* RESET básico y estilos generales */
+/* ESTILOS GENERALES */
 * {
     margin: 0;
     padding: 0;
@@ -41,7 +41,7 @@ body {
     font-weight: bold;
 }
 
-/* Info contacto superior */
+/* INFO CONTACTO SUPERIOR */
 .info-contacto-superior {
     background-color: #e9ecef;
     padding: 0.5rem 0;
@@ -85,7 +85,7 @@ body {
     font-weight: bold;
 }
 
-/* 3 RAZONES */
+/* RAZONES */
 .tres-razones {
     padding: 3rem 0;
     background-color: white;
@@ -201,7 +201,35 @@ body {
     font-size: 0.8rem;
 }
 
-/* Responsive */
+/* FORMULARIO FOOTER */
+.campo-form {
+    margin-bottom: 1rem;
+}
+
+.campo-form input,
+.campo-form textarea {
+    width: 100%;
+    padding: 0.8rem;
+    border: none;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 0.95rem;
+    background-color: #f0f0f0;
+}
+
+.campo-form input:focus,
+.campo-form textarea:focus {
+    outline: 2px solid #ee9b00;
+    background-color: white;
+}
+
+.campo-form.error input,
+.campo-form.error textarea {
+    outline: 2px solid #dc3545;
+    background-color: #fff0f0;
+}
+
+/* RESPONSIVE */
 @media (max-width: 768px) {
     .nav-principal ul {
         flex-direction: column;

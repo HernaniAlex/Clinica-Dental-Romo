@@ -155,17 +155,28 @@
             </div>
             <div class="formulario-footer">
                 <h4>¿Alguna duda? ¡Contáctanos!</h4>
-                <form action="#" method="post">
-                    <input type="text" name="nombre" placeholder="Nombre *" required>
-                    <input type="email" name="email" placeholder="E-mail *" required>
-                    <textarea name="mensaje" placeholder="Mensaje *" rows="3" required></textarea>
-                    <button type="submit" class="boton-enviar">Enviar consulta</button>
+                <form action="controllers/contacto_controller.php" method="POST" id="formContacto">
+                    <div class="campo-form">
+                        <input type="text" name="nombre" placeholder="Nombre completo *" required>
+                    </div>
+                    <div class="campo-form">
+                        <input type="email" name="email" placeholder="Correo electrónico *" required>
+                    </div>
+                    <div class="campo-form">
+                        <input type="tel" name="telefono" placeholder="Teléfono (opcional)">
+                    </div>
+                    <div class="campo-form">
+                        <textarea name="mensaje" placeholder="¿En qué podemos ayudarte? *" rows="4" required></textarea>
+                    </div>
+                    <button type="submit" class="boton-enviar">Enviar mensaje</button>
                 </form>
+                <div id="mensajeContactoRespuesta"></div>
             </div>
         </div>
         <div class="copyright">
             <p>&copy; 2025 Clínica Dental Romo - Todos los derechos reservados</p>
         </div>
     </footer>
+    <script src="assets/js/contacto.js"></script>
 </body>
 </html>
