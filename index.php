@@ -176,6 +176,10 @@
         <div class="copyright">
             <p>&copy; 2025 Clínica Dental Romo - Todos los derechos reservados</p>
         </div>
+        <!-- Enlace oculto admin -->
+        <div style="text-align: center; margin-top: 1rem;">
+            <a href="admin/login.php" style="color: transparent; text-decoration: none;">.</a>
+        </div>
     </footer>
     <script src="assets/js/contacto.js"></script>
 </body>
