@@ -26,8 +26,29 @@ CREATE TABLE IF NOT EXISTS administradores (
 -- Insertar administrador por defecto
 -- Usuario: admin
 -- Contraseña: admin123
-INSERT INTO administradores (usuario, password, email, nombre_completo) 
+INSERT IGNORE INTO administradores (usuario, password, email, nombre_completo) 
 VALUES ('admin', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'admin@clinicadentalromo.com', 'Administrador Principal');
 
 -- Verificar que se inserto correctamente
 SELECT * FROM administradores;
+
+-- Tabla de servicios
+CREATE TABLE IF NOT EXISTS servicios (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    descripcion TEXT NOT NULL,
+    icono VARCHAR(50) DEFAULT 'fas fa-tooth',
+    orden INT DEFAULT 0,
+    activo BOOLEAN DEFAULT TRUE,
+    fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Insertar servicios
+INSERT INTO servicios (nombre, descripcion, icono, orden) VALUES
+('Ortodoncias', 'Mediante la aplicación de fuerzas para realizar pequeños movimientos en los dientes y los huesos maxilares, la ortodoncia nos sirve para asegurar una correcta posición de los dientes y un mejor funcionamiento de la mandíbula.', 'fas fa-braces', 1),
+('Puentes', 'Un puente dental es una prótesis parcial fija. Gracias su colocación, los pacientes que han perdido más de una pieza pueden ver restablecida tanto la estética como la funcionalidad de su sonrisa.', 'fas fa-bridge', 2),
+('Implantes', 'Un implante es el sustituto artificial de la raíz de un diente perdido. Normalmente tiene forma roscada y es de titanio.', 'fas fa-implant', 3),
+('Empastes', 'También llamado obturación, un empaste es la restauración de un diente roto o cariado con materiales estéticos.', 'fas fa-fill-drip', 4),
+('Blanqueamientos dentales', 'Es un tratamiento con el cuál conseguiremos aclarar el color de los dientes varios tonos. El tratamiento puede realizarse en la clínica, en casa o combinando los dos.', 'fas fa-smile', 5),
+('Tratamientos periodontales', 'Los tratamientos periodontales se realizan para prevenir o curar la retracción de las encías, la pérdida de hueso y evitar la caída de los dientes.', 'fas fa-gums', 6),
+('PADI', 'El Departamento de Salud y Osakidetza, con la colaboración de un extenso cuadro de dentistas concertados, aseguran de forma gratuita con el PADI la atención dental a todos los niños y niñas desde los 7 a 15 años.', 'fas fa-child', 7);

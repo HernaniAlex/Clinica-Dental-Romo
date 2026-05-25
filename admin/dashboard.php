@@ -6,7 +6,9 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 // Verificar que el administrador esta logueado
 if (!isset($_SESSION['admin_logueado']) || $_SESSION['admin_logueado'] !== true) {
@@ -17,22 +19,28 @@ if (!isset($_SESSION['admin_logueado']) || $_SESSION['admin_logueado'] !== true)
 // Incluir conexion a la base de datos y modelos
 require_once '../config/database.php';
 require_once '../models/MensajeContacto.php';
+require_once '../models/Servicio.php';
 
 // Crear objetos para obtener datos reales
 $database = new Database();
 $db = $database->getConnection();
 
-// Contar mensajes no leidos
+// Contar mensajes
 $mensajeModel = new MensajeContacto($db);
 $totalNoLeidos = $mensajeModel->contarNoLeidos();
-
-// Contar total de mensajes
 $stmt = $mensajeModel->obtenerTodos();
 $totalMensajes = $stmt->rowCount();
 
-// Contadores para citas y servicios
+// Contar servicios activos
+$servicioModel = new Servicio($db);
+$totalServiciosActivos = $servicioModel->contarActivos();
+
+// Contar total de servicios
+$stmtServicios = $servicioModel->obtenerTodos();
+$totalServicios = $stmtServicios->rowCount();
+
+// Contador para citas
 $totalCitas = 0;
-$totalServicios = 0;
 ?>
 
 <!DOCTYPE html>
@@ -278,7 +286,7 @@ $totalServicios = 0;
                 <?php endif; ?>
             </a></li>
             <li><a href="#"><i class="fas fa-calendar-check"></i> Citas</a></li>
-            <li><a href="#"><i class="fas fa-concierge-bell"></i> Servicios</a></li>
+            <li><a href="servicios.php"><i class="fas fa-concierge-bell"></i> Servicios</a></li>
             <li><a href="#"><i class="fas fa-users"></i> Administradores</a></li>
         </ul>
     </div>
@@ -310,8 +318,8 @@ $totalServicios = 0;
             <div class="tarjeta">
                 <i class="fas fa-concierge-bell"></i>
                 <h3>Servicios activos</h3>
-                <div class="numero"><?php echo $totalServicios; ?></div>
-                <div class="subtexto">Próximamente</div>
+                <div class="numero"><?php echo $totalServiciosActivos; ?></div>
+                <div class="subtexto">Total: <?php echo $totalServicios; ?> servicios</div>
             </div>
         </div>
 
@@ -319,8 +327,8 @@ $totalServicios = 0;
         <div class="welcome-message">
             <h3><i class="fas fa-smile-wink"></i> Bienvenido, <?php echo isset($_SESSION['admin_nombre']) ? htmlspecialchars($_SESSION['admin_nombre']) : 'Administrador'; ?></h3>
             <p>Desde aquí podrás gestionar todos los aspectos de la clínica dental.</p>
-            <p>✅ <strong>Módulos disponibles:</strong> Gestión de mensajes de contacto.</p>
-            <p>📌 <strong>Próximamente:</strong> Gestión de citas, servicios y administradores.</p>
+            <p>✅ <strong>Módulos disponibles:</strong> Gestión de mensajes de contacto y servicios.</p>
+            <p>📌 <strong>Próximamente:</strong> Gestión de citas y administradores.</p>
             <hr style="margin: 1rem 0; border-color: #e2e8f0;">
             <p style="font-size: 0.9rem; color: #666;">
                 <i class="fas fa-info-circle"></i> Último acceso: <?php echo date('d/m/Y H:i:s'); ?>

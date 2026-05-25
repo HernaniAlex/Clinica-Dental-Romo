@@ -1,8 +1,7 @@
 <?php
-// controllers/contacto_controller.php
-// Siguiendo la teoría: isset, strip_tags, trim, preg_match, y conexión a BD
+// Controlador para gestionar el formulario de contacto
 
-// Incluir la conexión a la base de datos
+// Incluir la conexion a la base de datos
 require_once '../config/database.php';
 
 $mensaje = "";
@@ -19,28 +18,28 @@ if (isset($_POST["nombre"]) && isset($_POST["email"]) && isset($_POST["mensaje"]
     
     $errores = [];
     
-    // 3. Validacion del nombre con patrón
+    // 3. Validacion del nombre con patron
     if ($nombre == "") {
         $errores[] = "El nombre es obligatorio";
     } else if (!preg_match("/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]{2,100}$/", $nombre)) {
         $errores[] = "El nombre solo puede contener letras y espacios (mínimo 2 caracteres)";
     }
     
-    // 4. Validacion del email con patrón
+    // 4. Validacion del email con patron
     if ($email == "") {
         $errores[] = "El email es obligatorio";
     } else if (!preg_match("/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/", $email)) {
         $errores[] = "El formato del email no es válido";
     }
     
-    // 5. Validacion del telefono con patrón (opcional)
+    // 5. Validacion del telefono con patron
     if ($telefono != "") {
         if (!preg_match("/^[679][0-9]{8}$/", $telefono)) {
             $errores[] = "El teléfono debe tener 9 dígitos y empezar por 6, 7 o 9";
         }
     }
     
-    // 6. Validacion del mensaje con patrón
+    // 6. Validacion del mensaje con patron
     if ($mensaje_texto == "") {
         $errores[] = "El mensaje es obligatorio";
     } else if (strlen($mensaje_texto) < 10) {
@@ -52,7 +51,7 @@ if (isset($_POST["nombre"]) && isset($_POST["email"]) && isset($_POST["mensaje"]
     // 7. Si no hay errores, guardar en la base de datos
     if (empty($errores)) {
         
-        // Crear conexión a la base de datos
+        // Crear conexion a la base de datos
         $database = new Database();
         $db = $database->getConnection();
         
@@ -62,7 +61,7 @@ if (isset($_POST["nombre"]) && isset($_POST["email"]) && isset($_POST["mensaje"]
         
         $stmt = $db->prepare($query);
         
-        // Bind de parámetros
+        // Bind de parametros
         $stmt->bindParam(':nombre', $nombre);
         $stmt->bindParam(':email', $email);
         $stmt->bindParam(':telefono', $telefono);
@@ -97,7 +96,7 @@ if (isset($_POST["nombre"]) && isset($_POST["email"]) && isset($_POST["mensaje"]
     <meta charset="UTF-8">
     <title>Procesando formulario - Clínica Dental Romo</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="../estilos.css">
+    <link rel="stylesheet" href="/Clinica-Dental-Romo/estilos.css">
     <style>
         .contenedor-mensaje {
             max-width: 600px;
@@ -151,7 +150,7 @@ if (isset($_POST["nombre"]) && isset($_POST["email"]) && isset($_POST["mensaje"]
             </div>
         <?php endif; ?>
         
-        <a href="../index.php" class="boton-volver">← Volver a la página principal</a>
+        <a href="/Clinica-Dental-Romo/index.php" class="boton-volver">← Volver a la página principal</a>
     </div>
 </body>
 </html>
