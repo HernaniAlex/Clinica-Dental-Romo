@@ -368,12 +368,6 @@ $totalCitas = 0;
                 <div class="subtexto"><?php echo $totalNoLeidos; ?> no leídos</div>
             </div>
             <div class="tarjeta">
-                <i class="fas fa-calendar-check"></i>
-                <h3>Citas pendientes</h3>
-                <div class="numero"><?php echo $totalCitas; ?></div>
-                <div class="subtexto">Próximamente</div>
-            </div>
-            <div class="tarjeta">
                 <i class="fas fa-concierge-bell"></i>
                 <h3>Servicios activos</h3>
                 <div class="numero"><?php echo $totalServiciosActivos; ?></div>
@@ -382,10 +376,9 @@ $totalCitas = 0;
         </div>
 
         <div class="welcome-message">
-            <h3><i class="fas fa-smile-wink"></i> Bienvenido, <?php echo isset($_SESSION['admin_nombre']) ? htmlspecialchars($_SESSION['admin_nombre']) : 'Administrador'; ?></h3>
+            <h3>Bienvenido, <?php echo isset($_SESSION['admin_nombre']) ? htmlspecialchars($_SESSION['admin_nombre']) : 'Administrador'; ?></h3>
             <p>Desde aquí podrás gestionar todos los aspectos de la clínica dental.</p>
             <p><i class="fa-solid fa-check"></i><strong> Módulos disponibles:</strong> Gestión de mensajes de contacto y servicios.</p>
-            <p><i class="fa-solid fa-map-pin"></i><strong> Próximamente:</strong> Gestión de citas y administradores.</p>
             <hr style="margin: 1rem 0; border-color: #e2e8f0;">
             <p style="font-size: 0.9rem; color: #666;">
                 <i class="fas fa-info-circle"></i> Último acceso: <?php echo date('d/m/Y H:i:s'); ?>

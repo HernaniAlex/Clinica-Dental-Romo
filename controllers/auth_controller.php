@@ -45,7 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $admin = $stmt->fetch(PDO::FETCH_ASSOC);
                 
                 // Verificar contraseña
-                if (password_verify($password, $admin['password'])) {
+                if (md5($password) == $admin['password']) {
                     
                     // Contraseña correcta - iniciar sesión
                     $_SESSION['admin_logueado'] = true;
