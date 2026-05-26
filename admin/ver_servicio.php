@@ -6,7 +6,7 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 if (!isset($_SESSION['admin_logueado']) || $_SESSION['admin_logueado'] !== true) {
-    header("Location: /Clinica-Dental-Romo/admin/login.php?error=sesion");
+    header("Location: login.php?error=sesion");
     exit();
 }
 ?>
@@ -15,17 +15,23 @@ if (!isset($_SESSION['admin_logueado']) || $_SESSION['admin_logueado'] !== true)
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>Ver Servicio - Clínica Dental Romo</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #005f73 0%, #0a9396 100%);
+            background: linear-gradient(135deg, #C8B299 0%, #676768 100%);
             min-height: 100vh;
             padding: 2rem;
         }
+
         .container {
             max-width: 800px;
             margin: 0 auto;
@@ -34,38 +40,55 @@ if (!isset($_SESSION['admin_logueado']) || $_SESSION['admin_logueado'] !== true)
             box-shadow: 0 20px 40px rgba(0,0,0,0.2);
             overflow: hidden;
         }
+
         .header {
-            background-color: #005f73;
+            background-color: #676768;
             color: white;
             padding: 1.5rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
-        .header h1 { font-size: 1.5rem; }
-        .header a { color: white; text-decoration: none; font-size: 1.2rem; }
-        .contenido { padding: 2rem; }
+
+        .header h1 {
+            font-size: 1.5rem;
+        }
+
+        .header a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+        }
+
+        .contenido {
+            padding: 2rem;
+        }
+
+        .icono-grande {
+            font-size: 4rem;
+            color: #C8B299;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
         .campo {
             margin-bottom: 1.5rem;
             border-bottom: 1px solid #eee;
             padding-bottom: 1rem;
         }
+
         .campo label {
             font-weight: bold;
-            color: #005f73;
+            color: #676768;
             display: block;
             margin-bottom: 0.5rem;
         }
+
         .campo .valor {
             color: #333;
             line-height: 1.5;
         }
-        .icono-grande {
-            font-size: 4rem;
-            color: #005f73;
-            text-align: center;
-            margin-bottom: 1rem;
-        }
+
         .badge-activo {
             background-color: #28a745;
             color: white;
@@ -74,6 +97,7 @@ if (!isset($_SESSION['admin_logueado']) || $_SESSION['admin_logueado'] !== true)
             font-size: 0.8rem;
             display: inline-block;
         }
+
         .badge-inactivo {
             background-color: #dc3545;
             color: white;
@@ -82,11 +106,13 @@ if (!isset($_SESSION['admin_logueado']) || $_SESSION['admin_logueado'] !== true)
             font-size: 0.8rem;
             display: inline-block;
         }
+
         .botones {
             display: flex;
             gap: 1rem;
             margin-top: 2rem;
         }
+
         .btn-volver {
             background-color: #6c757d;
             color: white;
@@ -95,17 +121,23 @@ if (!isset($_SESSION['admin_logueado']) || $_SESSION['admin_logueado'] !== true)
             border-radius: 10px;
             text-align: center;
         }
+
         .btn-editar {
-            background-color: #ffc107;
-            color: #333;
+            background-color: #C8B299;
+            color: #676768;
             text-decoration: none;
             padding: 0.8rem 1.5rem;
             border-radius: 10px;
             text-align: center;
         }
+
         @media (max-width: 768px) {
-            body { padding: 1rem; }
-            .botones { flex-direction: column; }
+            body {
+                padding: 1rem;
+            }
+            .botones {
+                flex-direction: column;
+            }
         }
     </style>
 </head>

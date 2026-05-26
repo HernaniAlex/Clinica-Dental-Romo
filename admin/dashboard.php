@@ -1,7 +1,6 @@
 <?php
 // Panel de administracion
 
-// Activar errores para depurar
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
@@ -21,25 +20,19 @@ require_once '../config/database.php';
 require_once '../models/MensajeContacto.php';
 require_once '../models/Servicio.php';
 
-// Crear objetos para obtener datos reales
 $database = new Database();
 $db = $database->getConnection();
 
-// Contar mensajes
 $mensajeModel = new MensajeContacto($db);
 $totalNoLeidos = $mensajeModel->contarNoLeidos();
 $stmt = $mensajeModel->obtenerTodos();
 $totalMensajes = $stmt->rowCount();
 
-// Contar servicios activos
 $servicioModel = new Servicio($db);
 $totalServiciosActivos = $servicioModel->contarActivos();
-
-// Contar total de servicios
 $stmtServicios = $servicioModel->obtenerTodos();
 $totalServicios = $stmtServicios->rowCount();
 
-// Contador para citas
 $totalCitas = 0;
 ?>
 
@@ -47,7 +40,7 @@ $totalCitas = 0;
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>Panel de Administración - Clínica Dental Romo</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
@@ -59,41 +52,45 @@ $totalCitas = 0;
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f4f6f9;
+            background-color: #f5f5f5;
         }
 
         /* Sidebar */
         .sidebar {
-            width: 260px;
-            background-color: #005f73;
+            width: 280px;
+            background-color: #676768;
             color: white;
             position: fixed;
             height: 100%;
             left: 0;
             top: 0;
             overflow-y: auto;
-            transition: all 0.3s;
-            z-index: 100;
+            transition: transform 0.3s ease;
+            z-index: 1000;
         }
 
         .sidebar-header {
             padding: 1.5rem;
             text-align: center;
-            border-bottom: 1px solid #0a9396;
+            border-bottom: 1px solid #C8B299;
         }
 
-        .sidebar-header i {
-            font-size: 2.5rem;
+        .sidebar-header img {
+            width: 200px;
+            height: 100px;
+            object-fit: contain;
+            margin-bottom: 0.5rem;
         }
 
         .sidebar-header h2 {
             font-size: 1.2rem;
             margin-top: 0.5rem;
+            color: #C8B299;
         }
 
         .sidebar-header p {
             font-size: 0.8rem;
-            color: #94a3b8;
+            color: #ccc;
             margin-top: 0.3rem;
         }
 
@@ -116,13 +113,14 @@ $totalCitas = 0;
         }
 
         .sidebar-menu a:hover {
-            background-color: #0a9396;
-            border-left-color: #ee9b00;
+            background-color: #C8B299;
+            border-left-color: #676768;
         }
 
         .sidebar-menu a.activo {
-            background-color: #0a9396;
-            border-left-color: #ee9b00;
+            background-color: #C8B299;
+            border-left-color: #676768;
+            color: #676768;
         }
 
         .sidebar-menu i {
@@ -131,8 +129,8 @@ $totalCitas = 0;
         }
 
         .badge {
-            background-color: #dc3545;
-            color: white;
+            background-color: #C8B299;
+            color: #676768;
             padding: 0.2rem 0.5rem;
             border-radius: 20px;
             font-size: 0.7rem;
@@ -141,9 +139,30 @@ $totalCitas = 0;
 
         /* Contenido principal */
         .main-content {
-            margin-left: 260px;
+            margin-left: 280px;
             padding: 2rem;
             transition: all 0.3s;
+        }
+
+        /* Botón menú móvil */
+        .menu-toggle {
+            display: none;
+            position: fixed;
+            top: 1rem;
+            left: 1rem;
+            z-index: 1001;
+            background: #676768;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 0.5rem 1rem;
+            font-size: 1.2rem;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .menu-toggle i {
+            margin-right: 0.5rem;
         }
 
         .top-bar {
@@ -158,7 +177,7 @@ $totalCitas = 0;
         }
 
         .top-bar h1 {
-            color: #005f73;
+            color: #676768;
             font-size: 1.5rem;
         }
 
@@ -169,7 +188,7 @@ $totalCitas = 0;
         }
 
         .info-admin span {
-            color: #333;
+            color: #676768;
         }
 
         .boton-logout {
@@ -214,12 +233,12 @@ $totalCitas = 0;
 
         .tarjeta i {
             font-size: 2.5rem;
-            color: #005f73;
+            color: #C8B299;
             margin-bottom: 0.5rem;
         }
 
         .tarjeta h3 {
-            color: #333;
+            color: #676768;
             font-size: 1rem;
             margin-bottom: 0.5rem;
         }
@@ -227,12 +246,12 @@ $totalCitas = 0;
         .tarjeta .numero {
             font-size: 2rem;
             font-weight: bold;
-            color: #005f73;
+            color: #676768;
         }
 
         .tarjeta .subtexto {
             font-size: 0.8rem;
-            color: #666;
+            color: #999;
             margin-top: 0.3rem;
         }
 
@@ -244,39 +263,81 @@ $totalCitas = 0;
         }
 
         .welcome-message h3 {
-            color: #005f73;
+            color: #676768;
             margin-bottom: 0.5rem;
         }
 
         /* Responsive */
         @media (max-width: 768px) {
-            .sidebar {
-                width: 100%;
-                height: auto;
-                position: relative;
+            .menu-toggle {
+                display: block;
             }
+            
+            .sidebar {
+                transform: translateX(-100%);
+                width: 260px;
+            }
+            
+            .sidebar.visible {
+                transform: translateX(0);
+            }
+            
             .main-content {
                 margin-left: 0;
-                padding: 1rem;
+                padding-top: 4rem;
             }
+            
             .top-bar {
                 flex-direction: column;
                 gap: 1rem;
                 text-align: center;
             }
+            
             .tarjetas-dashboard {
                 grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .main-content {
+                padding: 0.8rem;
+                padding-top: 4rem;
+            }
+            
+            .top-bar h1 {
+                font-size: 1.2rem;
+            }
+            
+            .info-admin {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .tarjeta {
+                padding: 1rem;
+            }
+            
+            .welcome-message {
+                padding: 1rem;
+            }
+            
+            .welcome-message h3 {
+                font-size: 1rem;
             }
         }
     </style>
 </head>
 <body>
+    <button class="menu-toggle" id="menuToggle">
+        <i class="fas fa-bars"></i> Menú
+    </button>
+
     <!-- Sidebar -->
-    <div class="sidebar">
+    <div class="sidebar" id="sidebar">
         <div class="sidebar-header">
-            <i class="fas fa-tooth"></i>
-            <h2>Clínica Dental Romo</h2>
-            <p>Panel de Administración</p>
+            <img src="/Clinica-Dental-Romo/assets/images/logo1.png" alt="Logo Clínica Dental Romo">
+            <h2>Panel de Administración</h2>
         </div>
         <ul class="sidebar-menu">
             <li><a href="dashboard.php" class="activo"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
@@ -285,9 +346,7 @@ $totalCitas = 0;
                     <span class="badge"><?php echo $totalNoLeidos; ?></span>
                 <?php endif; ?>
             </a></li>
-            <li><a href="#"><i class="fas fa-calendar-check"></i> Citas</a></li>
             <li><a href="servicios.php"><i class="fas fa-concierge-bell"></i> Servicios</a></li>
-            <li><a href="#"><i class="fas fa-users"></i> Administradores</a></li>
         </ul>
     </div>
 
@@ -301,7 +360,6 @@ $totalCitas = 0;
             </div>
         </div>
 
-        <!-- Tarjetas de estadisticas -->
         <div class="tarjetas-dashboard">
             <div class="tarjeta">
                 <i class="fas fa-envelope"></i>
@@ -323,17 +381,47 @@ $totalCitas = 0;
             </div>
         </div>
 
-        <!-- Mensaje de bienvenida -->
         <div class="welcome-message">
             <h3><i class="fas fa-smile-wink"></i> Bienvenido, <?php echo isset($_SESSION['admin_nombre']) ? htmlspecialchars($_SESSION['admin_nombre']) : 'Administrador'; ?></h3>
             <p>Desde aquí podrás gestionar todos los aspectos de la clínica dental.</p>
-            <p>✅ <strong>Módulos disponibles:</strong> Gestión de mensajes de contacto y servicios.</p>
-            <p>📌 <strong>Próximamente:</strong> Gestión de citas y administradores.</p>
+            <p><i class="fa-solid fa-check"></i><strong> Módulos disponibles:</strong> Gestión de mensajes de contacto y servicios.</p>
+            <p><i class="fa-solid fa-map-pin"></i><strong> Próximamente:</strong> Gestión de citas y administradores.</p>
             <hr style="margin: 1rem 0; border-color: #e2e8f0;">
             <p style="font-size: 0.9rem; color: #666;">
                 <i class="fas fa-info-circle"></i> Último acceso: <?php echo date('d/m/Y H:i:s'); ?>
             </p>
         </div>
     </div>
+
+    <script>
+        // Toggle menu para movil
+        const menuToggle = document.getElementById('menuToggle');
+        const sidebar = document.getElementById('sidebar');
+        
+        menuToggle.addEventListener('click', function() {
+            sidebar.classList.toggle('visible');
+        });
+        
+        // Cerrar menu al hacer clic en un enlace
+        document.querySelectorAll('.sidebar-menu a').forEach(link => {
+            link.addEventListener('click', function() {
+                if (window.innerWidth <= 768) {
+                    sidebar.classList.remove('visible');
+                }
+            });
+        });
+        
+        // Cerrar menu al hacer clic fuera
+        document.addEventListener('click', function(event) {
+            if (window.innerWidth <= 768) {
+                const isClickInsideSidebar = sidebar.contains(event.target);
+                const isClickOnToggle = menuToggle.contains(event.target);
+                
+                if (!isClickInsideSidebar && !isClickOnToggle && sidebar.classList.contains('visible')) {
+                    sidebar.classList.remove('visible');
+                }
+            }
+        });
+    </script>
 </body>
 </html>

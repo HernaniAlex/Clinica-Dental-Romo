@@ -7,6 +7,7 @@ error_reporting(E_ALL);
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
+
 require_once __DIR__ . '/../config/database.php';
 require_once __DIR__ . '/../models/MensajeContacto.php';
 
@@ -50,7 +51,7 @@ $mensaje = isset($datos['mensaje']) ? htmlspecialchars($datos['mensaje']) : html
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>Editar Mensaje - Clínica Dental Romo</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
@@ -62,7 +63,7 @@ $mensaje = isset($datos['mensaje']) ? htmlspecialchars($datos['mensaje']) : html
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #005f73 0%, #0a9396 100%);
+            background: linear-gradient(135deg, #C8B299 0%, #676768 100%);
             min-height: 100vh;
             padding: 2rem;
         }
@@ -77,7 +78,7 @@ $mensaje = isset($datos['mensaje']) ? htmlspecialchars($datos['mensaje']) : html
         }
 
         .header {
-            background-color: #005f73;
+            background-color: #676768;
             color: white;
             padding: 1.5rem;
             display: flex;
@@ -106,7 +107,7 @@ $mensaje = isset($datos['mensaje']) ? htmlspecialchars($datos['mensaje']) : html
         .campo label {
             display: block;
             font-weight: bold;
-            color: #005f73;
+            color: #676768;
             margin-bottom: 0.5rem;
         }
 
@@ -124,7 +125,7 @@ $mensaje = isset($datos['mensaje']) ? htmlspecialchars($datos['mensaje']) : html
         .campo input:focus,
         .campo textarea:focus {
             outline: none;
-            border-color: #0a9396;
+            border-color: #C8B299;
         }
 
         .mensaje-error {
@@ -141,12 +142,12 @@ $mensaje = isset($datos['mensaje']) ? htmlspecialchars($datos['mensaje']) : html
         }
 
         .info-adicional {
-            background-color: #e0fbfc;
+            background-color: #f0e6df;
             padding: 1rem;
             border-radius: 10px;
             margin-bottom: 1.5rem;
             font-size: 0.9rem;
-            color: #005f73;
+            color: #676768;
         }
 
         .botones {
@@ -156,8 +157,8 @@ $mensaje = isset($datos['mensaje']) ? htmlspecialchars($datos['mensaje']) : html
         }
 
         .btn-guardar {
-            background-color: #005f73;
-            color: white;
+            background-color: #C8B299;
+            color: #676768;
             border: none;
             padding: 0.8rem 1.5rem;
             border-radius: 10px;
@@ -168,7 +169,7 @@ $mensaje = isset($datos['mensaje']) ? htmlspecialchars($datos['mensaje']) : html
         }
 
         .btn-guardar:hover {
-            background-color: #0a9396;
+            background-color: #b8a289;
         }
 
         .btn-cancelar {

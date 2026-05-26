@@ -29,17 +29,23 @@ $orden = isset($datos['orden']) ? intval($datos['orden']) : 0;
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>Crear Servicio - Clínica Dental Romo</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #005f73 0%, #0a9396 100%);
+            background: linear-gradient(135deg, #C8B299 0%, #676768 100%);
             min-height: 100vh;
             padding: 2rem;
         }
+
         .container {
             max-width: 800px;
             margin: 0 auto;
@@ -48,25 +54,44 @@ $orden = isset($datos['orden']) ? intval($datos['orden']) : 0;
             box-shadow: 0 20px 40px rgba(0,0,0,0.2);
             overflow: hidden;
         }
+
         .header {
-            background-color: #005f73;
+            background-color: #676768;
             color: white;
             padding: 1.5rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
-        .header h1 { font-size: 1.5rem; }
-        .header a { color: white; text-decoration: none; font-size: 1.2rem; }
-        .contenido { padding: 2rem; }
-        .campo { margin-bottom: 1.5rem; }
+
+        .header h1 {
+            font-size: 1.5rem;
+        }
+
+        .header a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+        }
+
+        .contenido {
+            padding: 2rem;
+        }
+
+        .campo {
+            margin-bottom: 1.5rem;
+        }
+
         .campo label {
             display: block;
             font-weight: bold;
-            color: #005f73;
+            color: #676768;
             margin-bottom: 0.5rem;
         }
-        .campo input, .campo textarea, .campo select {
+
+        .campo input,
+        .campo textarea,
+        .campo select {
             width: 100%;
             padding: 0.8rem;
             border: 2px solid #e2e8f0;
@@ -75,10 +100,14 @@ $orden = isset($datos['orden']) ? intval($datos['orden']) : 0;
             font-family: inherit;
             transition: border-color 0.3s;
         }
-        .campo input:focus, .campo textarea:focus, .campo select:focus {
+
+        .campo input:focus,
+        .campo textarea:focus,
+        .campo select:focus {
             outline: none;
-            border-color: #0a9396;
+            border-color: #C8B299;
         }
+
         .mensaje-error {
             background-color: #f8d7da;
             color: #721c24;
@@ -87,15 +116,27 @@ $orden = isset($datos['orden']) ? intval($datos['orden']) : 0;
             margin-bottom: 1.5rem;
             border: 1px solid #f5c6cb;
         }
-        .mensaje-error ul { margin-left: 1.5rem; }
+
+        .mensaje-error ul {
+            margin-left: 1.5rem;
+        }
+
+        .icono-preview {
+            display: inline-block;
+            font-size: 2rem;
+            margin-top: 0.5rem;
+            color: #C8B299;
+        }
+
         .botones {
             display: flex;
             gap: 1rem;
             margin-top: 2rem;
         }
+
         .btn-guardar {
-            background-color: #005f73;
-            color: white;
+            background-color: #C8B299;
+            color: #676768;
             border: none;
             padding: 0.8rem 1.5rem;
             border-radius: 10px;
@@ -104,7 +145,11 @@ $orden = isset($datos['orden']) ? intval($datos['orden']) : 0;
             cursor: pointer;
             transition: background-color 0.3s;
         }
-        .btn-guardar:hover { background-color: #0a9396; }
+
+        .btn-guardar:hover {
+            background-color: #b8a289;
+        }
+
         .btn-cancelar {
             background-color: #6c757d;
             color: white;
@@ -112,18 +157,15 @@ $orden = isset($datos['orden']) ? intval($datos['orden']) : 0;
             padding: 0.8rem 1.5rem;
             border-radius: 10px;
             text-align: center;
-            transition: background-color 0.3s;
         }
-        .btn-cancelar:hover { background-color: #5a6268; }
-        .icono-preview {
-            display: inline-block;
-            font-size: 2rem;
-            margin-top: 0.5rem;
-            color: #005f73;
-        }
+
         @media (max-width: 768px) {
-            body { padding: 1rem; }
-            .botones { flex-direction: column; }
+            body {
+                padding: 1rem;
+            }
+            .botones {
+                flex-direction: column;
+            }
         }
     </style>
 </head>
